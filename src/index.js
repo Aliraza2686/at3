@@ -4,10 +4,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+import { BrowserRouter } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
+import { Provider } from 'react-redux';
+import { persistor } from './store/store';
+import store from './store/store';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import { Toaster } from 'react-hot-toast';
+
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+     <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <BrowserRouter>
+            <MantineProvider withGlobalStyles withNormalizeCSS>
+            <Toaster position="top-center" reverseOrder={false} />
+               <App />
+               </MantineProvider>
+    </BrowserRouter>
+    </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 
